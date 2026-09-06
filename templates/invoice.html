@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Invoice — MJUnlimited Essential Marketing</title>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family:'Segoe UI',system-ui,sans-serif; color:#1e293b; background:#f1f5f9; padding:2rem 1rem; }
+  .page { max-width:720px; margin:0 auto; background:#fff; padding:3rem; border-radius:8px; }
+  .head { display:flex; justify-content:space-between; border-bottom:3px solid #7b2fff; padding-bottom:1.25rem; margin-bottom:1.5rem; }
+  .brand .logo { font-size:1.15rem; font-weight:800; color:#1e293b; }
+  .brand .logo span { color:#b8860b; }
+  .brand .tag { font-size:.65rem; color:#7b2fff; text-transform:uppercase; letter-spacing:2px; margin-top:.2rem; }
+  .meta { text-align:right; font-size:.8rem; color:#64748b; line-height:1.6; }
+  h2 { color:#7b2fff; font-size:.85rem; text-transform:uppercase; letter-spacing:1.5px; margin:1.75rem 0 .6rem; border-bottom:1px solid #e2e8f0; padding-bottom:.3rem; }
+  .fill { border-bottom:1px dotted #94a3b8; display:inline-block; min-width:180px; }
+  p { font-size:.9rem; line-height:1.7; color:#334155; margin-bottom:.75rem; }
+  .two { display:flex; gap:2.5rem; }
+  .two > div { flex:1; font-size:.85rem; line-height:1.8; color:#334155; }
+  table { width:100%; border-collapse:collapse; font-size:.85rem; margin:.75rem 0; }
+  th { text-align:left; color:#64748b; font-size:.7rem; text-transform:uppercase; letter-spacing:1px; border-bottom:2px solid #7b2fff; padding:.4rem .25rem; }
+  td { border-bottom:1px solid #e2e8f0; padding:.5rem .25rem; }
+  td:last-child, th:last-child { text-align:right; }
+  .strong td { font-weight:800; border-top:2px solid #7b2fff; }
+  .gold td { color:#b8860b; font-weight:800; font-size:1.05rem; }
+  .terms li { font-size:.78rem; color:#334155; line-height:1.65; margin:0 0 .3rem 1.1rem; }
+  .printbar { max-width:720px; margin:0 auto 1rem; text-align:right; }
+  button { background:#7b2fff; color:#fff; border:none; padding:.6rem 1.2rem; border-radius:6px; font-weight:600; cursor:pointer; }
+  @media print { .printbar { display:none; } body { background:#fff; padding:0; } .page { padding:1rem; } }
+</style>
+</head>
+<body>
+<div class="printbar"><button onclick="window.print()">Print / Save as PDF</button></div>
+<div class="page">
+  <div class="head">
+    <div class="brand">
+      <div class="logo">MJUnlimited <span>Essential Marketing</span></div>
+      <div class="tag">&amp; Web Design</div>
+    </div>
+    <div class="meta">
+      <b>INVOICE</b><br>
+      Invoice #: <span class="fill" style="min-width:100px;"></span><br>
+      Issue Date: <span class="fill" style="min-width:100px;"></span><br>
+      Due Date: <span class="fill" style="min-width:100px;"></span>
+    </div>
+  </div>
+
+  <div class="two">
+    <div>
+      <b>Bill From</b><br>
+      MJUnlimited Essential Marketing &amp; Web Design<br>
+      37 Keepsake Place<br>
+      Phone: 240-653-1400<br>
+      Admin@mjunlimitedessentialmktg.com
+    </div>
+    <div>
+      <b>Bill To</b><br>
+      <span class="fill" style="min-width:220px;"></span><br>
+      <span class="fill" style="min-width:220px;"></span><br>
+      <span class="fill" style="min-width:220px;"></span><br>
+      <span class="fill" style="min-width:220px;"></span>
+    </div>
+  </div>
+
+  <h2>Project</h2>
+  <p><span class="fill" style="min-width:340px;"></span> — <span class="fill" style="min-width:280px;"></span></p>
+
+  <h2>Line Items</h2>
+  <table>
+    <tr><th>Description</th><th>Qty</th><th>Rate</th><th>Amount</th></tr>
+    <tr><td><span class="fill" style="min-width:280px;"></span></td><td>1</td><td>$<span class="fill" style="min-width:70px;"></span></td><td>$<span class="fill" style="min-width:90px;"></span></td></tr>
+    <tr><td><span class="fill" style="min-width:280px;"></span></td><td>1</td><td>$<span class="fill" style="min-width:70px;"></span></td><td>$<span class="fill" style="min-width:90px;"></span></td></tr>
+    <tr><td colspan="3">Subtotal</td><td>$<span class="fill" style="min-width:90px;"></span></td></tr>
+    <tr><td colspan="3">Discount (<span class="fill" style="min-width:50px;"></span>)</td><td>−$<span class="fill" style="min-width:80px;"></span></td></tr>
+    <tr><td colspan="3">Tax Treatment: <span class="fill" style="min-width:220px;"></span></td><td>$<span class="fill" style="min-width:90px;"></span></td></tr>
+    <tr class="strong"><td colspan="3">TOTAL</td><td>$<span class="fill" style="min-width:90px;"></span></td></tr>
+    <tr><td colspan="3">Amount Paid</td><td>−$<span class="fill" style="min-width:80px;"></span></td></tr>
+    <tr class="strong gold"><td colspan="3">BALANCE DUE</td><td>$<span class="fill" style="min-width:90px;"></span></td></tr>
+  </table>
+
+  <h2>Payment Methods</h2>
+  <p>Zelle: <b>1-203-685-2498</b> (Mona Jackson-Ham — MJUnlimited). Reference the invoice number in your payment memo. Card &amp; ACH via Stripe available on request — processing fees may apply and will be disclosed before payment.</p>
+
+  <h2>Payment Terms</h2>
+  <ul class="terms">
+    <li>A <b>50% non-refundable deposit</b> is required at signing; work begins only after deposit receipt.</li>
+    <li>The <b>final 50% is due upon completion notice</b>, before launch or transfer, by the next business day.</li>
+    <li>After that, a <b>24-hour final notice</b> is issued, then the account is placed on <b>hold</b>.</li>
+    <li>A one-time <b>$175 account hold and reactivation fee</b>, plus direct costs, applies to reactivated accounts.</li>
+    <li><b>No deliverables, files, or access</b> will be released until paid in full.</li>
+  </ul>
+
+  <h2>Notes</h2>
+  <p style="min-height:2.5rem;"></p>
+  <p style="font-size:.78rem; color:#64748b;">Thank you for trusting MJUnlimited Essential Marketing &amp; Web Design with your vision. — Mona Jackson-Ham</p>
+</div>
+</body>
+</html>
