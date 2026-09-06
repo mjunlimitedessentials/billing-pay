@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Change Order — MJUnlimited Essential Marketing</title>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family:'Segoe UI',system-ui,sans-serif; color:#1e293b; background:#f1f5f9; padding:2rem 1rem; }
+  .page { max-width:720px; margin:0 auto; background:#fff; padding:3rem; border-radius:8px; }
+  .head { display:flex; justify-content:space-between; border-bottom:3px solid #7b2fff; padding-bottom:1.25rem; margin-bottom:1.5rem; }
+  .brand .logo { font-size:1.15rem; font-weight:800; color:#1e293b; }
+  .brand .logo span { color:#b8860b; }
+  .brand .tag { font-size:.65rem; color:#7b2fff; text-transform:uppercase; letter-spacing:2px; margin-top:.2rem; }
+  .meta { text-align:right; font-size:.8rem; color:#64748b; line-height:1.6; }
+  h2 { color:#7b2fff; font-size:.85rem; text-transform:uppercase; letter-spacing:1.5px; margin:1.75rem 0 .6rem; border-bottom:1px solid #e2e8f0; padding-bottom:.3rem; }
+  .fill { border-bottom:1px dotted #94a3b8; display:inline-block; min-width:180px; }
+  p { font-size:.9rem; line-height:1.7; color:#334155; margin-bottom:.75rem; }
+  table { width:100%; border-collapse:collapse; font-size:.85rem; margin:.75rem 0; }
+  th { text-align:left; color:#64748b; font-size:.7rem; text-transform:uppercase; letter-spacing:1px; border-bottom:2px solid #7b2fff; padding:.4rem .25rem; }
+  td { border-bottom:1px solid #e2e8f0; padding:.5rem .25rem; vertical-align:top; }
+  td:last-child, th:last-child { text-align:right; }
+  .strong td { font-weight:800; border-top:2px solid #7b2fff; }
+  .box { border:1px solid #cbd5e1; border-radius:8px; padding:1rem; min-height:5rem; font-size:.85rem; }
+  .sig { display:flex; gap:3rem; margin-top:2.5rem; }
+  .sig div { flex:1; font-size:.75rem; color:#64748b; }
+  .sig .line { border-bottom:1px solid #334155; height:2.25rem; margin-bottom:.35rem; }
+  .printbar { max-width:720px; margin:0 auto 1rem; text-align:right; }
+  button { background:#7b2fff; color:#fff; border:none; padding:.6rem 1.2rem; border-radius:6px; font-weight:600; cursor:pointer; }
+  @media print { .printbar { display:none; } body { background:#fff; padding:0; } .page { padding:1rem; } }
+</style>
+</head>
+<body>
+<div class="printbar"><button onclick="window.print()">Print / Save as PDF</button></div>
+<div class="page">
+  <div class="head">
+    <div class="brand">
+      <div class="logo">MJUnlimited <span>Essential Marketing</span></div>
+      <div class="tag">&amp; Web Design</div>
+    </div>
+    <div class="meta">
+      <b>CHANGE ORDER</b><br>
+      CO #: <span class="fill" style="min-width:90px;"></span><br>
+      Date: <span class="fill" style="min-width:100px;"></span><br>
+      References Project/Invoice #: <span class="fill" style="min-width:100px;"></span>
+    </div>
+  </div>
+
+  <h2>Client</h2>
+  <p>Client: <span class="fill" style="min-width:280px;"></span> &nbsp; Company: <span class="fill" style="min-width:220px;"></span></p>
+
+  <h2>Description of Change</h2>
+  <div class="box"></div>
+
+  <h2>Reason for Change</h2>
+  <div class="box" style="min-height:3rem;"></div>
+
+  <h2>Price Impact</h2>
+  <table>
+    <tr><th>Item</th><th>Amount</th></tr>
+    <tr><td>Added cost</td><td>+$<span class="fill" style="min-width:90px;"></span></td></tr>
+    <tr><td>Cost reduction (if any)</td><td>−$<span class="fill" style="min-width:80px;"></span></td></tr>
+    <tr class="strong"><td>Net change to project total</td><td>$<span class="fill" style="min-width:90px;"></span></td></tr>
+    <tr class="strong"><td>Revised project total</td><td>$<span class="fill" style="min-width:90px;"></span></td></tr>
+  </table>
+
+  <h2>Timeline Impact</h2>
+  <p>Original completion date: <span class="fill" style="min-width:130px;"></span> &nbsp;·&nbsp; Revised completion date: <span class="fill" style="min-width:130px;"></span> &nbsp;·&nbsp; Adjustment: <span class="fill" style="min-width:120px;"></span></p>
+
+  <h2>Terms</h2>
+  <p style="font-size:.8rem;">This change order modifies the approved project scope and supersedes prior pricing for the items listed. À la carte prices are subject to change based on scope and third-party tool costs. Payment terms of the original agreement apply to any balance created by this change order. Work on the described change begins only after both parties sign below.</p>
+
+  <h2>Approval</h2>
+  <div class="sig">
+    <div><div class="line"></div>Client Signature / Date</div>
+    <div><div class="line"></div>Mona Jackson-Ham, MJUnlimited Essential Marketing / Date</div>
+  </div>
+</div>
+</body>
+</html>
