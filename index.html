@@ -5,131 +5,253 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Client Portal — MJUnlimited Essential Marketing</title>
 <style>
-  :root { --purple:#7b2fff; --purple-light:#b06aff; --gold:#f5c842; --bg:#0a0010; --card:rgba(123,47,255,0.07); --border:rgba(123,47,255,0.25); }
+  :root {
+    --purple:#7b2fff; --purple-light:#b06aff; --gold:#f5c842;
+    --bg:#0a0010; --panel:#12031f; --card:rgba(123,47,255,0.07);
+    --border:rgba(123,47,255,0.25); --text:#e2e8f0; --dim:#94a3b8;
+  }
   * { margin:0; padding:0; box-sizing:border-box; }
-  body { font-family:'Segoe UI',system-ui,-apple-system,sans-serif; background:var(--bg); color:#e2e8f0; min-height:100vh; padding:1.5rem; }
-  .wrap { max-width:640px; margin:0 auto; }
-  .brand { text-align:center; padding:1rem 0 1.5rem; }
-  .brand .logo { font-size:1.35rem; font-weight:800; letter-spacing:.5px; }
-  .brand .logo span { color:var(--gold); }
-  .brand .tag { font-size:.75rem; color:var(--purple-light); text-transform:uppercase; letter-spacing:2px; margin-top:.25rem; }
-  .card { background:var(--card); border:1px solid var(--border); border-radius:16px; padding:1.5rem; margin-bottom:1rem; }
-  h1 { font-size:1.3rem; color:#fff; margin-bottom:.35rem; }
-  h2 { font-size:1.05rem; color:var(--gold); margin-bottom:.75rem; text-transform:uppercase; letter-spacing:1px; }
-  .sub { color:var(--purple-light); font-size:.85rem; margin-bottom:1.25rem; }
-  label { display:block; font-size:.75rem; text-transform:uppercase; letter-spacing:1.5px; color:var(--purple-light); margin:.9rem 0 .3rem; }
-  input { width:100%; padding:.85rem 1rem; border-radius:10px; border:1px solid var(--border); background:rgba(255,255,255,0.05); color:#fff; font-size:1rem; outline:none; }
-  input:focus { border-color:var(--gold); }
-  button.primary { width:100%; margin-top:1.25rem; padding:.9rem; border:none; border-radius:10px; background:var(--gold); color:#1a0533; font-weight:700; font-size:1rem; cursor:pointer; }
-  button.primary:disabled { opacity:.6; }
-  .error { background:rgba(239,68,68,0.12); border:1px solid rgba(239,68,68,0.4); color:#fca5a5; border-radius:10px; padding:.75rem 1rem; font-size:.85rem; margin-top:1rem; display:none; }
+  html,body { height:100%; }
+  body { font-family:'Segoe UI',system-ui,-apple-system,sans-serif; background:var(--bg); color:var(--text); min-height:100vh; }
+
+  /* ---------- LOGIN LAYOUT ---------- */
+  .login-shell { display:flex; min-height:100vh; }
+  .brand-panel {
+    flex:1.15; background:linear-gradient(135deg,#1a0533 0%,#0a0010 60%), var(--panel);
+    background-blend-mode:screen; position:relative; overflow:hidden;
+    display:flex; flex-direction:column; justify-content:center; padding:4rem 4.5rem;
+  }
+  .brand-panel::before {
+    content:''; position:absolute; inset:0;
+    background:
+      radial-gradient(ellipse 60% 50% at 20% 15%, rgba(123,47,255,.35), transparent 60%),
+      radial-gradient(ellipse 40% 35% at 85% 85%, rgba(245,200,66,.12), transparent 65%);
+  }
+  .brand-panel::after {
+    content:''; position:absolute; inset:0; opacity:.5;
+    background-image:
+      radial-gradient(circle 1px at 25px 35px, rgba(226,232,240,.5), transparent),
+      radial-gradient(circle 1px at 75px 90px, rgba(176,106,255,.5), transparent);
+    background-size:110px 120px;
+  }
+  .bp-inner { position:relative; z-index:2; max-width:520px; }
+  .bp-inner .logo { font-size:1.9rem; font-weight:800; color:#fff; letter-spacing:.5px; }
+  .bp-inner .logo span { color:var(--gold); }
+  .bp-inner .tag { font-size:.78rem; color:var(--purple-light); text-transform:uppercase; letter-spacing:2.5px; margin:.4rem 0 2.5rem; }
+  .bp-inner h1 { font-size:2.35rem; line-height:1.2; color:#fff; margin-bottom:1rem; }
+  .bp-inner h1 em { font-style:normal; color:var(--gold); }
+  .bp-inner .pitch { color:var(--dim); font-size:.95rem; line-height:1.7; margin-bottom:2rem; }
+  .feat { display:flex; align-items:flex-start; gap:.85rem; margin-bottom:1.1rem; }
+  .feat .ico { width:2.1rem; height:2.1rem; border-radius:9px; background:rgba(123,47,255,.18); border:1px solid var(--border);
+    display:flex; align-items:center; justify-content:center; font-size:1rem; flex-shrink:0; }
+  .feat .t b { display:block; color:#fff; font-size:.92rem; }
+  .feat .t span { font-size:.8rem; color:var(--dim); }
+
+  .login-panel { flex:1; display:flex; align-items:center; justify-content:center; padding:3rem 1.5rem; }
+  .login-card {
+    width:100%; max-width:430px; background:var(--card); border:1px solid var(--border);
+    border-radius:20px; padding:2.5rem; backdrop-filter:blur(6px);
+  }
+  .login-card h2 { font-size:1.45rem; color:#fff; margin-bottom:.4rem; }
+  .login-card .sub { color:var(--purple-light); font-size:.85rem; margin-bottom:1.75rem; line-height:1.55; }
+  label { display:block; font-size:.72rem; text-transform:uppercase; letter-spacing:1.5px; color:var(--purple-light); margin:1.1rem 0 .35rem; }
+  input { width:100%; padding:.85rem 1rem; border-radius:12px; border:1px solid var(--border);
+    background:rgba(255,255,255,0.05); color:#fff; font-size:1rem; outline:none; }
+  input:focus { border-color:var(--gold); box-shadow:0 0 0 3px rgba(245,200,66,.12); }
+  button.primary { width:100%; margin-top:1.5rem; padding:.95rem; border:none; border-radius:12px;
+    background:linear-gradient(90deg,var(--gold),#ffdd75); color:#1a0533; font-weight:800; font-size:1rem; cursor:pointer; }
+  button.primary:disabled { opacity:.6; cursor:wait; }
+  .error { background:rgba(239,68,68,0.12); border:1px solid rgba(239,68,68,0.4); color:#fca5a5;
+    border-radius:12px; padding:.75rem 1rem; font-size:.85rem; margin-top:1rem; display:none; }
+  .login-help { text-align:center; margin-top:1.5rem; font-size:.8rem; color:var(--dim); }
+  .login-help a { color:var(--purple-light); text-decoration:none; }
+  .login-help a:hover { text-decoration:underline; }
+
+  /* ---------- DASHBOARD ---------- */
+  #dash { display:none; min-height:100vh; }
+  .topbar {
+    display:flex; align-items:center; justify-content:space-between; gap:1rem;
+    padding:1rem 2rem; border-bottom:1px solid var(--border);
+    background:rgba(18,3,31,0.8); position:sticky; top:0; backdrop-filter:blur(8px); z-index:10;
+  }
+  .topbar .logo { font-size:1.15rem; font-weight:800; color:#fff; }
+  .topbar .logo span { color:var(--gold); }
+  .topbar .who { display:flex; align-items:center; gap:.9rem; }
+  .chip { padding:.35rem .8rem; border-radius:99px; font-size:.72rem; font-weight:700; letter-spacing:1px; text-transform:uppercase; }
+  .chip.partial { background:rgba(245,200,66,.15); color:var(--gold); }
+  .chip.paid { background:rgba(34,197,94,.15); color:#4ade80; }
+  .chip.open { background:rgba(123,47,255,.2); color:var(--purple-light); }
+  button.ghost { padding:.5rem 1rem; border-radius:99px; border:1px solid var(--border);
+    background:transparent; color:var(--dim); font-size:.8rem; cursor:pointer; }
+  button.ghost:hover { color:#fff; border-color:var(--gold); }
+
+  .dash-wrap { max-width:1080px; margin:0 auto; padding:2rem 1.5rem 4rem; }
+  .welcome { margin-bottom:1.5rem; }
+  .welcome h2 { font-size:1.7rem; color:#fff; }
+  .welcome h2 em { font-style:normal; color:var(--gold); }
+  .welcome p { color:var(--dim); font-size:.9rem; margin-top:.35rem; }
+  .grid { display:grid; grid-template-columns:1fr 1fr; gap:1.25rem; }
+  .card { background:var(--card); border:1px solid var(--border); border-radius:16px; padding:1.5rem; }
+  .card h3 { font-size:.8rem; color:var(--gold); text-transform:uppercase; letter-spacing:1.5px; margin-bottom:1rem; }
+  .card.full { grid-column:1 / -1; }
+
   .row { display:flex; justify-content:space-between; gap:1rem; font-size:.9rem; padding:.3rem 0; }
-  .row .k { color:#94a3b8; }
+  .row .k { color:var(--dim); }
   .row .v { color:#fff; text-align:right; }
   .table { width:100%; border-collapse:collapse; font-size:.85rem; margin-bottom:.75rem; }
-  .table th { text-align:left; color:var(--purple-light); font-size:.7rem; text-transform:uppercase; letter-spacing:1px; padding:.4rem 0; border-bottom:1px solid var(--border); }
-  .table td { padding:.5rem 0; color:#cbd5e1; border-bottom:1px solid rgba(123,47,255,0.12); }
+  .table th { text-align:left; color:var(--purple-light); font-size:.68rem; text-transform:uppercase; letter-spacing:1px; padding:.4rem 0; border-bottom:1px solid var(--border); }
+  .table td { padding:.55rem 0; color:#cbd5e1; border-bottom:1px solid rgba(123,47,255,0.12); }
   .table td:last-child, .table th:last-child { text-align:right; color:#fff; font-variant-numeric:tabular-nums; }
   .sumrow { display:flex; justify-content:space-between; padding:.35rem 0; font-size:.9rem; }
-  .sumrow.balance { border-top:1px solid var(--border); margin-top:.5rem; padding-top:.75rem; font-weight:800; font-size:1.15rem; }
+  .sumrow.balance { border-top:1px solid var(--border); margin-top:.5rem; padding-top:.9rem; font-weight:800; font-size:1.3rem; }
   .sumrow.balance .val { color:var(--gold); }
-  .badge { display:inline-block; padding:.25rem .7rem; border-radius:99px; font-size:.7rem; font-weight:700; letter-spacing:1px; text-transform:uppercase; }
-  .badge.partial { background:rgba(245,200,66,.15); color:var(--gold); }
-  .badge.open { background:rgba(123,47,255,.2); color:var(--purple-light); }
-  .badge.paid { background:rgba(34,197,94,.15); color:#4ade80; }
-  .plan { background:rgba(245,200,66,0.08); border:1px solid rgba(245,200,66,0.3); border-radius:12px; padding:1rem; font-size:.85rem; line-height:1.55; margin-bottom:1rem; }
-  .terms li { font-size:.85rem; color:#cbd5e1; line-height:1.7; margin-left:1.1rem; margin-bottom:.35rem; }
-  .terms li b { color:#fff; }
-  .zelle-box { background:rgba(255,255,255,0.05); border:1px solid var(--border); border-radius:12px; padding:1rem; margin-bottom:1rem; text-align:center; }
+  .bigbal { display:flex; justify-content:space-between; align-items:center; background:rgba(245,200,66,0.08);
+    border:1px solid rgba(245,200,66,0.3); border-radius:14px; padding:1.1rem 1.4rem; margin-top:1rem; }
+  .bigbal .lbl { font-size:.78rem; color:var(--gold); text-transform:uppercase; letter-spacing:1.5px; }
+  .bigbal .amt { font-size:2rem; font-weight:800; color:#fff; }
+  .plan { background:rgba(245,200,66,0.08); border:1px solid rgba(245,200,66,0.3); border-radius:12px;
+    padding:1rem; font-size:.85rem; line-height:1.6; margin-top:1rem; }
+
+  .zelle-box { background:rgba(255,255,255,0.05); border:1px solid var(--border); border-radius:12px; padding:1.1rem; text-align:center; }
   .zelle-box .num { font-size:1.6rem; font-weight:800; color:#fff; letter-spacing:1px; }
-  .zelle-box .to { font-size:.7rem; text-transform:uppercase; letter-spacing:2px; color:var(--purple-light); margin-bottom:.35rem; }
-  button.copy { width:100%; padding:.85rem; border:none; border-radius:10px; background:var(--gold); color:#1a0533; font-weight:700; font-size:.95rem; cursor:pointer; }
+  .zelle-box .to { font-size:.68rem; text-transform:uppercase; letter-spacing:2px; color:var(--purple-light); margin-bottom:.35rem; }
+  button.copy { width:100%; margin-top:.75rem; padding:.85rem; border:none; border-radius:12px;
+    background:linear-gradient(90deg,var(--gold),#ffdd75); color:#1a0533; font-weight:700; font-size:.95rem; cursor:pointer; }
   button.copy.copied { background:#22c55e; color:#fff; }
-  .feenote { font-size:.78rem; color:#94a3b8; line-height:1.6; }
+  .feenote { font-size:.78rem; color:var(--dim); line-height:1.6; margin-top:.75rem; }
+
+  .docs { display:grid; grid-template-columns:1fr 1fr; gap:.75rem; }
+  .doc { display:block; padding:.9rem 1rem; border:1px solid var(--border); border-radius:12px;
+    text-decoration:none; background:rgba(255,255,255,0.03); transition:border-color .15s; }
+  .doc:hover { border-color:var(--gold); }
+  .doc b { display:block; color:#fff; font-size:.88rem; margin-bottom:.15rem; }
+  .doc span { font-size:.72rem; color:var(--dim); }
+
+  .terms li { font-size:.85rem; color:#cbd5e1; line-height:1.7; margin:0 0 .35rem 1.1rem; }
+  .terms li b { color:#fff; }
   .alacarte p { font-size:.85rem; color:#cbd5e1; line-height:1.7; }
-  .alacarte .notice { background:rgba(123,47,255,0.12); border:1px solid var(--border); border-radius:10px; padding:.75rem 1rem; font-size:.78rem; color:var(--purple-light); margin-top:.75rem; }
-  .confirm { display:block; text-align:center; margin-top:1rem; font-size:.8rem; color:var(--purple-light); text-decoration:none; }
-  .confirm:hover { text-decoration:underline; }
-  .foot { text-align:center; font-size:.72rem; color:#64748b; padding:1.5rem 0 2rem; line-height:1.6; }
-  #portal { display:none; }
+  .alacarte .notice { background:rgba(123,47,255,0.12); border:1px solid var(--border); border-radius:10px;
+    padding:.75rem 1rem; font-size:.78rem; color:var(--purple-light); margin-top:.75rem; }
+  .foot { text-align:center; font-size:.72rem; color:#64748b; padding:2.5rem 0; line-height:1.7; }
+
+  @media (max-width:860px) {
+    .brand-panel { display:none; }
+    .login-panel { padding:2rem 1.25rem; }
+    .grid { grid-template-columns:1fr; }
+    .docs { grid-template-columns:1fr; }
+    .dash-wrap { padding:1.25rem 1rem 3rem; }
+    .topbar { padding:.9rem 1.1rem; }
+  }
 </style>
 </head>
 <body>
-<div class="wrap">
-  <div class="brand">
+
+<!-- ================= LOGIN ================= -->
+<div class="login-shell" id="loginShell">
+  <div class="brand-panel">
+    <div class="bp-inner">
+      <div class="logo">MJUnlimited <span>Essential Marketing</span></div>
+      <div class="tag">&amp; Web Design — Client Portal</div>
+      <h1>Everything about your project, <em>all in one place.</em></h1>
+      <p class="pitch">Your dedicated client workspace — check your project status, review invoices, make payments, and access your business documents anytime.</p>
+      <div class="feat"><div class="ico">📊</div><div class="t"><b>Project Status</b><span>Live view of your project scope and progress</span></div></div>
+      <div class="feat"><div class="ico">💳</div><div class="t"><b>Invoices &amp; Balances</b><span>What's paid, what's due, and your payment plan</span></div></div>
+      <div class="feat"><div class="ico">⚡</div><div class="t"><b>Secure Payments</b><span>Zelle and card options with instant confirmation</span></div></div>
+      <div class="feat"><div class="ico">📄</div><div class="t"><b>Business Documents</b><span>Proposals, agreements, and templates at your fingertips</span></div></div>
+    </div>
+  </div>
+  <div class="login-panel">
+    <div class="login-card">
+      <h2>Welcome back</h2>
+      <div class="sub">Sign in to your client workspace with your invoice number and last name.</div>
+      <label for="inv">Invoice Number</label>
+      <input id="inv" placeholder="e.g. INV-9004" autocomplete="off">
+      <label for="ln">Last Name</label>
+      <input id="ln" placeholder="e.g. Jackson" autocomplete="off">
+      <div class="error" id="err"></div>
+      <button class="primary" id="verifyBtn" onclick="verify()">Sign In to My Portal</button>
+      <div class="login-help">Don't have your invoice number handy? <a href="mailto:Admin@mjunlimitedessentialmktg.com?subject=Portal%20Access%20Help">Email us</a> and we'll look it up.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ================= DASHBOARD ================= -->
+<div id="dash">
+  <div class="topbar">
     <div class="logo">MJUnlimited <span>Essential Marketing</span></div>
-    <div class="tag">&amp; Web Design — Client Portal</div>
+    <div class="who">
+      <span class="chip" id="chip"></span>
+      <button class="ghost" onclick="signOut()">Sign Out</button>
+    </div>
   </div>
 
-  <!-- VERIFICATION -->
-  <div class="card" id="verifyCard">
-    <h1>Welcome to your client portal</h1>
-    <div class="sub">Enter your invoice number and last name to view your project details, billing, and balance.</div>
-    <label for="inv">Invoice Number</label>
-    <input id="inv" placeholder="e.g. INV-9004" autocomplete="off">
-    <label for="ln">Last Name</label>
-    <input id="ln" placeholder="e.g. Jackson" autocomplete="off">
-    <div class="error" id="err"></div>
-    <button class="primary" id="verifyBtn" onclick="verify()">View My Project &amp; Balance</button>
-    <a class="confirm" href="mailto:Admin@mjunlimitedessentialmktg.com?subject=Portal%20Access%20Help">Need help verifying? Email us →</a>
-  </div>
-
-  <!-- PORTAL -->
-  <div id="portal">
-    <div class="card">
-      <div class="row"><span class="k">Client</span><span class="v" id="cName"></span></div>
-      <div class="row"><span class="k">Company</span><span class="v" id="cCompany"></span></div>
-      <div class="row"><span class="k">Email</span><span class="v" id="cEmail"></span></div>
-      <div class="row"><span class="k">Invoice</span><span class="v" id="cInv"></span></div>
-      <div class="row"><span class="k">Status</span><span class="v" id="cStatus"></span></div>
+  <div class="dash-wrap">
+    <div class="welcome">
+      <h2>Welcome back, <em id="wName"></em></h2>
+      <p>Here's everything on your account — project, billing, payments, and documents.</p>
     </div>
 
-    <div class="card">
-      <h2>Project</h2>
-      <div class="row"><span class="k">Title</span><span class="v" id="pTitle"></span></div>
-      <p style="font-size:.9rem; color:#cbd5e1; line-height:1.65; margin-top:.75rem;" id="pDesc"></p>
-    </div>
-
-    <div class="card">
-      <h2>Billing</h2>
-      <table class="table"><thead><tr><th>Item</th><th>Amount</th></tr></thead><tbody id="lineItems"></tbody></table>
-      <div class="sumrow"><span>Subtotal</span><span id="sSub"></span></div>
-      <div class="sumrow"><span>Tax</span><span id="sTax"></span></div>
-      <div class="feenote" id="sTaxNote" style="margin:.25rem 0 .5rem;"></div>
-      <div class="sumrow"><span>Total</span><span id="sTotal"></span></div>
-      <div class="sumrow"><span>Paid to date</span><span id="sPaid"></span></div>
-      <div class="sumrow balance"><span>Balance Due</span><span class="val" id="sBalance"></span></div>
-      <div class="row" style="margin-top:.5rem;"><span class="k">Due Date</span><span class="v" id="sDue"></span></div>
-      <div class="plan" id="planBox" style="display:none; margin-top:1rem;"><span id="planNote"></span></div>
-    </div>
-
-    <div class="card">
-      <h2>Payment Methods</h2>
-      <div class="zelle-box">
-        <div class="to">Send Zelle to</div>
-        <div class="num" id="znum">1-203-685-2498</div>
+    <div class="grid">
+      <div class="card">
+        <h3>My Project</h3>
+        <div class="row"><span class="k">Title</span><span class="v" id="pTitle"></span></div>
+        <div class="row"><span class="k">Invoice</span><span class="v" id="cInv"></span></div>
+        <div class="row"><span class="k">Company</span><span class="v" id="cCompany"></span></div>
+        <div class="row"><span class="k">Email on file</span><span class="v" id="cEmail"></span></div>
+        <p style="font-size:.88rem; color:#cbd5e1; line-height:1.65; margin-top:.9rem;" id="pDesc"></p>
       </div>
-      <button class="copy" id="copyBtn" onclick="copyNum()">Tap to Copy Number</button>
-      <p class="feenote" style="margin-top:.75rem;">Mona Jackson-Ham — MJUnlimited. Reference your invoice number (<span id="zInv"></span>) in your payment memo. Card &amp; ACH payments via Stripe are available on request — processing fees may apply and will be disclosed before you pay.</p>
-      <a class="confirm" href="mailto:Admin@mjunlimitedessentialmktg.com?subject=Payment%20Sent&body=Hi%20Mona%2C%20I%20just%20sent%20my%20payment.">Already sent payment? Let Mona know →</a>
-    </div>
 
-    <div class="card terms">
-      <h2>Payment Terms</h2>
-      <ul style="list-style:none;">
-        <li>• A <b>50% non-refundable deposit</b> is required at signing. Work begins only after the deposit is received.</li>
-        <li>• The <b>final 50% is due upon completion notice</b>, before launch or transfer, by the next business day.</li>
-        <li>• If the balance remains unpaid after that window, a <b>24-hour final notice</b> will be issued, after which the account will be placed on <b>hold</b>.</li>
-        <li>• A one-time <b>$175 account hold and reactivation fee</b>, plus direct costs, applies to reactivated accounts.</li>
-        <li>• <b>No deliverables, files, or access</b> will be released until the account is paid in full.</li>
-        <li>• Payment processing fees may apply and will be disclosed before payment.</li>
-      </ul>
-    </div>
+      <div class="card">
+        <h3>Billing</h3>
+        <table class="table"><thead><tr><th>Item</th><th>Amount</th></tr></thead><tbody id="lineItems"></tbody></table>
+        <div class="sumrow"><span>Subtotal</span><span id="sSub"></span></div>
+        <div class="sumrow"><span>Tax</span><span id="sTax"></span></div>
+        <div class="sumrow"><span>Total</span><span id="sTotal"></span></div>
+        <div class="sumrow"><span>Paid to date</span><span id="sPaid"></span></div>
+        <div class="bigbal"><span class="lbl">Balance Due<br><span id="sDue" style="text-transform:none;letter-spacing:0;"></span></span><span class="amt" id="sBalance"></span></div>
+        <div class="plan" id="planBox" style="display:none;"><span id="planNote"></span></div>
+      </div>
 
-    <div class="card alacarte">
-      <h2>À La Carte Services</h2>
-      <p>Services outside the approved project scope — additional revisions, website upgrades, autonomous agents, dashboards, social media management, promotions, flyers, automations, and other digital products — are available à la carte.</p>
-      <div class="notice">Prices are subject to change based on project scope and third-party tool costs. Each à la carte item requires a separate written quote and approval before work begins.</div>
+      <div class="card">
+        <h3>Make a Payment</h3>
+        <div class="zelle-box">
+          <div class="to">Send Zelle to</div>
+          <div class="num" id="znum">1-203-685-2498</div>
+        </div>
+        <button class="copy" id="copyBtn" onclick="copyNum()">Tap to Copy Number</button>
+        <p class="feenote">Mona Jackson-Ham — MJUnlimited. Reference invoice <b id="zInv"></b> in your payment memo. Card &amp; ACH via Stripe available on request — processing fees may apply and will be disclosed before you pay.</p>
+        <a class="login-help" style="display:block;margin-top:.9rem;" href="mailto:Admin@mjunlimitedessentialmktg.com?subject=Payment%20Sent&body=Hi%20Mona%2C%20I%20just%20sent%20my%20payment.">Already sent payment? Let Mona know →</a>
+      </div>
+
+      <div class="card">
+        <h3>Business Documents</h3>
+        <div class="docs">
+          <a class="doc" href="templates/proposal.html"><b>Project Proposal</b><span>Scope, timeline &amp; investment</span></a>
+          <a class="doc" href="templates/invoice.html"><b>Invoice</b><span>Full billing breakdown</span></a>
+          <a class="doc" href="templates/change-order.html"><b>Change Order</b><span>Scope or price adjustments</span></a>
+          <a class="doc" href="templates/maintenance-agreement.html"><b>Maintenance Agreement</b><span>Monthly care plan terms</span></a>
+          <a class="doc" href="templates/account-hold-notice.html"><b>Account Hold Notice</b><span>Overdue balance policy</span></a>
+          <a class="doc" href="mailto:Admin@mjunlimitedessentialmktg.com?subject=Document%20Request"><b>Need another document?</b><span>Request it by email</span></a>
+        </div>
+      </div>
+
+      <div class="card full terms">
+        <h3>Payment Terms</h3>
+        <ul style="list-style:none;">
+          <li>• A <b>50% non-refundable deposit</b> is required at signing. Work begins only after the deposit is received.</li>
+          <li>• The <b>final 50% is due upon completion notice</b>, before launch or transfer, by the next business day.</li>
+          <li>• If the balance remains unpaid after that window, a <b>24-hour final notice</b> will be issued, after which the account will be placed on <b>hold</b>.</li>
+          <li>• A one-time <b>$175 account hold and reactivation fee</b>, plus direct costs, applies to reactivated accounts.</li>
+          <li>• <b>No deliverables, files, or access</b> will be released until the account is paid in full.</li>
+          <li>• Payment processing fees may apply and will be disclosed before payment.</li>
+        </ul>
+      </div>
+
+      <div class="card full alacarte">
+        <h3>À La Carte Services</h3>
+        <p>Services outside the approved project scope — additional revisions, website upgrades, autonomous agents, dashboards, social media management, promotions, flyers, automations, and other digital products — are available à la carte.</p>
+        <div class="notice">Prices are subject to change based on project scope and third-party tool costs. Each à la carte item requires a separate written quote and approval before work begins.</div>
+      </div>
     </div>
 
     <div class="foot">
@@ -141,66 +263,103 @@
 
 <script>
 const API = 'https://base44.app/api/apps/6a029d2b5cc37d5b54f861bf/functions/clientPortalVerify';
-let DATA = null;
-const fmt = n => '$' + Number(n || 0).toLocaleString('en-US', {minimumFractionDigits:2, maximumFractionDigits:2});
+const invEl = document.getElementById('inv'), lnEl = document.getElementById('ln'),
+      errEl = document.getElementById('err'), btn = document.getElementById('verifyBtn');
 
-async function verify(){
-  const inv = document.getElementById('inv').value.trim();
-  const ln = document.getElementById('ln').value.trim();
-  const err = document.getElementById('err');
-  const btn = document.getElementById('verifyBtn');
-  if (!inv || !ln) { err.textContent = 'Please enter both your invoice number and last name.'; err.style.display='block'; return; }
-  err.style.display='none';
+const money = n => '$' + (Math.round(n*100)/100).toLocaleString('en-US', {minimumFractionDigits:2, maximumFractionDigits:2});
+const esc = s => String(s||'').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+
+async function verify() {
+  const invoice_number = invEl.value.trim(), last_name = lnEl.value.trim();
+  errEl.style.display = 'none';
+  if (!invoice_number || !last_name) {
+    errEl.textContent = 'Please enter both your invoice number and last name.';
+    errEl.style.display = 'block'; return;
+  }
   btn.disabled = true; btn.textContent = 'Verifying…';
   try {
-    const res = await fetch(API, {method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({invoice_number: inv, last_name: ln})});
-    const out = await res.json();
-    if (out.ok && out.invoice) { DATA = out.invoice; render(); }
-    else { err.textContent = out.message || 'Verification failed. Please check your details and try again.'; err.style.display='block'; }
+    const res = await fetch(API, {
+      method: 'POST', headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({ invoice_number, last_name })
+    });
+    const d = await res.json();
+    if (!d.ok) {
+      errEl.textContent = d.message || 'We couldn\u2019t verify that combination. Please double-check and try again.';
+      errEl.style.display = 'block'; return;
+    }
+    sessionStorage.setItem('mj_portal', JSON.stringify({invoice_number, last_name}));
+    showDash(d.invoice);
   } catch (e) {
-    err.textContent = 'Connection issue — please try again in a moment.'; err.style.display='block';
+    errEl.textContent = 'Connection problem — please check your internet and try again.';
+    errEl.style.display = 'block';
+  } finally {
+    btn.disabled = false; btn.textContent = 'Sign In to My Portal';
   }
-  btn.disabled = false; btn.textContent = 'View My Project & Balance';
 }
 
-function esc(s){ const d = document.createElement('div'); d.textContent = s || ''; return d.innerHTML; }
+function showDash(inv) {
+  document.getElementById('loginShell').style.display = 'none';
+  document.getElementById('dash').style.display = 'block';
 
-function render(){
-  const i = DATA;
-  document.getElementById('verifyCard').style.display = 'none';
-  document.getElementById('portal').style.display = 'block';
-  document.getElementById('cName').textContent = i.client_full_name;
-  document.getElementById('cCompany').textContent = i.company || '—';
-  document.getElementById('cEmail').textContent = i.email || '—';
-  document.getElementById('cInv').textContent = i.invoice_number;
-  const st = (i.status||'').toLowerCase();
-  document.getElementById('cStatus').innerHTML = '<span class="badge ' + (st.includes('paid') && !st.includes('partial') ? 'paid' : st.includes('partial') ? 'partial' : 'open') + '">' + esc(i.status) + '</span>';
-  document.getElementById('pTitle').textContent = i.project_title;
-  document.getElementById('pDesc').textContent = i.project_description;
-  const tb = document.getElementById('lineItems');
-  tb.innerHTML = (i.line_items||[]).map(li => '<tr><td>' + esc(li.description) + '</td><td>' + fmt(li.amount) + '</td></tr>').join('');
-  document.getElementById('sSub').textContent = fmt(i.subtotal);
-  document.getElementById('sTax').textContent = fmt(i.tax_amount);
-  document.getElementById('sTaxNote').textContent = i.tax_treatment || '';
-  document.getElementById('sTotal').textContent = fmt(i.total);
-  document.getElementById('sPaid').textContent = '−' + fmt(i.amount_paid);
-  document.getElementById('sBalance').textContent = fmt((i.total||0) - (i.amount_paid||0));
-  document.getElementById('sDue').textContent = i.due_date || 'Upon receipt';
-  document.getElementById('zInv').textContent = i.invoice_number;
-  if (i.payment_plan_note) {
+  const first = (inv.client_full_name || '').split(' ')[0];
+  document.getElementById('wName').textContent = first;
+  document.getElementById('cInv').textContent = inv.invoice_number;
+  document.getElementById('cCompany').textContent = inv.company || '—';
+  document.getElementById('cEmail').textContent = inv.email || '—';
+  document.getElementById('pTitle').textContent = inv.project_title || '—';
+  document.getElementById('pDesc').textContent = inv.project_description || '';
+
+  const status = (inv.status || '').toLowerCase();
+  const chip = document.getElementById('chip');
+  if (status.includes('paid') && !status.includes('partial')) { chip.className='chip paid'; chip.textContent = inv.status; }
+  else if (status.includes('partial')) { chip.className='chip partial'; chip.textContent = inv.status; }
+  else { chip.className='chip open'; chip.textContent = inv.status || 'Active'; }
+
+  const tb = document.getElementById('lineItems'); tb.innerHTML = '';
+  (inv.line_items || []).forEach(li => {
+    tb.innerHTML += `<tr><td>${esc(li.description)}</td><td>${money(li.amount)}</td></tr>`;
+  });
+
+  const taxNote = inv.tax_treatment ? inv.tax_treatment + ' ' : '';
+  document.getElementById('sSub').textContent = money(inv.subtotal || 0);
+  document.getElementById('sTax').textContent = (inv.tax_amount ? money(inv.tax_amount) : '—') ;
+  document.getElementById('sTotal').textContent = money(inv.total || 0);
+  document.getElementById('sPaid').textContent = money(inv.amount_paid || 0);
+  const bal = (inv.total || 0) - (inv.amount_paid || 0);
+  document.getElementById('sBalance').textContent = bal > 0 ? money(bal) : 'PAID IN FULL';
+  document.getElementById('sDue').textContent = bal > 0 ? ('Due ' + (inv.due_date || '')) : 'Thank you!';
+  document.getElementById('zInv').textContent = inv.invoice_number;
+
+  if (inv.payment_plan_note) {
     document.getElementById('planBox').style.display = 'block';
-    document.getElementById('planNote').textContent = i.payment_plan_note;
+    document.getElementById('planNote').textContent = inv.payment_plan_note;
   }
   window.scrollTo(0,0);
 }
 
-function copyNum(){
-  const btn = document.getElementById('copyBtn');
-  const num = '12036852498';
-  const ok = () => { btn.textContent = 'Copied! ✓'; btn.classList.add('copied'); setTimeout(()=>{btn.textContent='Tap to Copy Number'; btn.classList.remove('copied');}, 2500); };
-  if (navigator.clipboard && navigator.clipboard.writeText) { navigator.clipboard.writeText(num).then(ok); }
-  else { const ta = document.createElement('textarea'); ta.value = num; document.body.appendChild(ta); ta.select(); document.execCommand('copy'); document.body.removeChild(ta); ok(); }
+function copyNum() {
+  const n = document.getElementById('znum').textContent;
+  const done = () => { const b=document.getElementById('copyBtn'); b.classList.add('copied'); b.textContent='Copied! Now paste it into your banking app →'; setTimeout(()=>{b.classList.remove('copied'); b.textContent='Tap to Copy Number';}, 4000); };
+  if (navigator.clipboard) { navigator.clipboard.writeText(n).then(done).catch(()=>fallback()); } else fallback();
+  function fallback() { const t=document.createElement('textarea'); t.value=n; document.body.appendChild(t); t.select(); try{document.execCommand('copy'); done();}catch(e){} t.remove(); }
 }
+
+function signOut() { sessionStorage.removeItem('mj_portal'); location.reload(); }
+
+// Auto sign-in if credentials were saved this session
+(async () => {
+  const saved = sessionStorage.getItem('mj_portal');
+  if (!saved) return;
+  try {
+    const {invoice_number, last_name} = JSON.parse(saved);
+    const res = await fetch(API, { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({invoice_number, last_name}) });
+    const d = await res.json();
+    if (d.ok) showDash(d.invoice); else sessionStorage.removeItem('mj_portal');
+  } catch (e) {}
+})();
+
+invEl.addEventListener('keydown', e => { if (e.key === 'Enter') lnEl.focus(); });
+lnEl.addEventListener('keydown', e => { if (e.key === 'Enter') verify(); });
 </script>
 </body>
 </html>
