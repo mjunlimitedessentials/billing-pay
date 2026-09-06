@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Client Portal — MJUnlimited Essential Marketing</title>
+<style>
+  :root { --purple:#7b2fff; --purple-light:#b06aff; --gold:#f5c842; --bg:#0a0010; --card:rgba(123,47,255,0.07); --border:rgba(123,47,255,0.25); }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family:'Segoe UI',system-ui,-apple-system,sans-serif; background:var(--bg); color:#e2e8f0; min-height:100vh; padding:1.5rem; }
+  .wrap { max-width:640px; margin:0 auto; }
+  .brand { text-align:center; padding:1rem 0 1.5rem; }
+  .brand .logo { font-size:1.35rem; font-weight:800; letter-spacing:.5px; }
+  .brand .logo span { color:var(--gold); }
+  .brand .tag { font-size:.75rem; color:var(--purple-light); text-transform:uppercase; letter-spacing:2px; margin-top:.25rem; }
+  .card { background:var(--card); border:1px solid var(--border); border-radius:16px; padding:1.5rem; margin-bottom:1rem; }
+  h1 { font-size:1.3rem; color:#fff; margin-bottom:.35rem; }
+  h2 { font-size:1.05rem; color:var(--gold); margin-bottom:.75rem; text-transform:uppercase; letter-spacing:1px; }
+  .sub { color:var(--purple-light); font-size:.85rem; margin-bottom:1.25rem; }
+  label { display:block; font-size:.75rem; text-transform:uppercase; letter-spacing:1.5px; color:var(--purple-light); margin:.9rem 0 .3rem; }
+  input { width:100%; padding:.85rem 1rem; border-radius:10px; border:1px solid var(--border); background:rgba(255,255,255,0.05); color:#fff; font-size:1rem; outline:none; }
+  input:focus { border-color:var(--gold); }
+  button.primary { width:100%; margin-top:1.25rem; padding:.9rem; border:none; border-radius:10px; background:var(--gold); color:#1a0533; font-weight:700; font-size:1rem; cursor:pointer; }
+  button.primary:disabled { opacity:.6; }
+  .error { background:rgba(239,68,68,0.12); border:1px solid rgba(239,68,68,0.4); color:#fca5a5; border-radius:10px; padding:.75rem 1rem; font-size:.85rem; margin-top:1rem; display:none; }
+  .row { display:flex; justify-content:space-between; gap:1rem; font-size:.9rem; padding:.3rem 0; }
+  .row .k { color:#94a3b8; }
+  .row .v { color:#fff; text-align:right; }
+  .table { width:100%; border-collapse:collapse; font-size:.85rem; margin-bottom:.75rem; }
+  .table th { text-align:left; color:var(--purple-light); font-size:.7rem; text-transform:uppercase; letter-spacing:1px; padding:.4rem 0; border-bottom:1px solid var(--border); }
+  .table td { padding:.5rem 0; color:#cbd5e1; border-bottom:1px solid rgba(123,47,255,0.12); }
+  .table td:last-child, .table th:last-child { text-align:right; color:#fff; font-variant-numeric:tabular-nums; }
+  .sumrow { display:flex; justify-content:space-between; padding:.35rem 0; font-size:.9rem; }
+  .sumrow.balance { border-top:1px solid var(--border); margin-top:.5rem; padding-top:.75rem; font-weight:800; font-size:1.15rem; }
+  .sumrow.balance .val { color:var(--gold); }
+  .badge { display:inline-block; padding:.25rem .7rem; border-radius:99px; font-size:.7rem; font-weight:700; letter-spacing:1px; text-transform:uppercase; }
+  .badge.partial { background:rgba(245,200,66,.15); color:var(--gold); }
+  .badge.open { background:rgba(123,47,255,.2); color:var(--purple-light); }
+  .badge.paid { background:rgba(34,197,94,.15); color:#4ade80; }
+  .plan { background:rgba(245,200,66,0.08); border:1px solid rgba(245,200,66,0.3); border-radius:12px; padding:1rem; font-size:.85rem; line-height:1.55; margin-bottom:1rem; }
+  .terms li { font-size:.85rem; color:#cbd5e1; line-height:1.7; margin-left:1.1rem; margin-bottom:.35rem; }
+  .terms li b { color:#fff; }
+  .zelle-box { background:rgba(255,255,255,0.05); border:1px solid var(--border); border-radius:12px; padding:1rem; margin-bottom:1rem; text-align:center; }
+  .zelle-box .num { font-size:1.6rem; font-weight:800; color:#fff; letter-spacing:1px; }
+  .zelle-box .to { font-size:.7rem; text-transform:uppercase; letter-spacing:2px; color:var(--purple-light); margin-bottom:.35rem; }
+  button.copy { width:100%; padding:.85rem; border:none; border-radius:10px; background:var(--gold); color:#1a0533; font-weight:700; font-size:.95rem; cursor:pointer; }
+  button.copy.copied { background:#22c55e; color:#fff; }
+  .feenote { font-size:.78rem; color:#94a3b8; line-height:1.6; }
+  .alacarte p { font-size:.85rem; color:#cbd5e1; line-height:1.7; }
+  .alacarte .notice { background:rgba(123,47,255,0.12); border:1px solid var(--border); border-radius:10px; padding:.75rem 1rem; font-size:.78rem; color:var(--purple-light); margin-top:.75rem; }
+  .confirm { display:block; text-align:center; margin-top:1rem; font-size:.8rem; color:var(--purple-light); text-decoration:none; }
+  .confirm:hover { text-decoration:underline; }
+  .foot { text-align:center; font-size:.72rem; color:#64748b; padding:1.5rem 0 2rem; line-height:1.6; }
+  #portal { display:none; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="brand">
+    <div class="logo">MJUnlimited <span>Essential Marketing</span></div>
+    <div class="tag">&amp; Web Design — Client Portal</div>
+  </div>
+
+  <!-- VERIFICATION -->
+  <div class="card" id="verifyCard">
+    <h1>Welcome to your client portal</h1>
+    <div class="sub">Enter your invoice number and last name to view your project details, billing, and balance.</div>
+    <label for="inv">Invoice Number</label>
+    <input id="inv" placeholder="e.g. INV-9004" autocomplete="off">
+    <label for="ln">Last Name</label>
+    <input id="ln" placeholder="e.g. Jackson" autocomplete="off">
+    <div class="error" id="err"></div>
+    <button class="primary" id="verifyBtn" onclick="verify()">View My Project &amp; Balance</button>
+    <a class="confirm" href="mailto:Admin@mjunlimitedessentialmktg.com?subject=Portal%20Access%20Help">Need help verifying? Email us →</a>
+  </div>
+
+  <!-- PORTAL -->
+  <div id="portal">
+    <div class="card">
+      <div class="row"><span class="k">Client</span><span class="v" id="cName"></span></div>
+      <div class="row"><span class="k">Company</span><span class="v" id="cCompany"></span></div>
+      <div class="row"><span class="k">Email</span><span class="v" id="cEmail"></span></div>
+      <div class="row"><span class="k">Invoice</span><span class="v" id="cInv"></span></div>
+      <div class="row"><span class="k">Status</span><span class="v" id="cStatus"></span></div>
+    </div>
+
+    <div class="card">
+      <h2>Project</h2>
+      <div class="row"><span class="k">Title</span><span class="v" id="pTitle"></span></div>
+      <p style="font-size:.9rem; color:#cbd5e1; line-height:1.65; margin-top:.75rem;" id="pDesc"></p>
+    </div>
+
+    <div class="card">
+      <h2>Billing</h2>
+      <table class="table"><thead><tr><th>Item</th><th>Amount</th></tr></thead><tbody id="lineItems"></tbody></table>
+      <div class="sumrow"><span>Subtotal</span><span id="sSub"></span></div>
+      <div class="sumrow"><span>Tax</span><span id="sTax"></span></div>
+      <div class="feenote" id="sTaxNote" style="margin:.25rem 0 .5rem;"></div>
+      <div class="sumrow"><span>Total</span><span id="sTotal"></span></div>
+      <div class="sumrow"><span>Paid to date</span><span id="sPaid"></span></div>
+      <div class="sumrow balance"><span>Balance Due</span><span class="val" id="sBalance"></span></div>
+      <div class="row" style="margin-top:.5rem;"><span class="k">Due Date</span><span class="v" id="sDue"></span></div>
+      <div class="plan" id="planBox" style="display:none; margin-top:1rem;"><span id="planNote"></span></div>
+    </div>
+
+    <div class="card">
+      <h2>Payment Methods</h2>
+      <div class="zelle-box">
+        <div class="to">Send Zelle to</div>
+        <div class="num" id="znum">1-203-685-2498</div>
+      </div>
+      <button class="copy" id="copyBtn" onclick="copyNum()">Tap to Copy Number</button>
+      <p class="feenote" style="margin-top:.75rem;">Mona Jackson-Ham — MJUnlimited. Reference your invoice number (<span id="zInv"></span>) in your payment memo. Card &amp; ACH payments via Stripe are available on request — processing fees may apply and will be disclosed before you pay.</p>
+      <a class="confirm" href="mailto:Admin@mjunlimitedessentialmktg.com?subject=Payment%20Sent&body=Hi%20Mona%2C%20I%20just%20sent%20my%20payment.">Already sent payment? Let Mona know →</a>
+    </div>
+
+    <div class="card terms">
+      <h2>Payment Terms</h2>
+      <ul style="list-style:none;">
+        <li>• A <b>50% non-refundable deposit</b> is required at signing. Work begins only after the deposit is received.</li>
+        <li>• The <b>final 50% is due upon completion notice</b>, before launch or transfer, by the next business day.</li>
+        <li>• If the balance remains unpaid after that window, a <b>24-hour final notice</b> will be issued, after which the account will be placed on <b>hold</b>.</li>
+        <li>• A one-time <b>$175 account hold and reactivation fee</b>, plus direct costs, applies to reactivated accounts.</li>
+        <li>• <b>No deliverables, files, or access</b> will be released until the account is paid in full.</li>
+        <li>• Payment processing fees may apply and will be disclosed before payment.</li>
+      </ul>
+    </div>
+
+    <div class="card alacarte">
+      <h2>À La Carte Services</h2>
+      <p>Services outside the approved project scope — additional revisions, website upgrades, autonomous agents, dashboards, social media management, promotions, flyers, automations, and other digital products — are available à la carte.</p>
+      <div class="notice">Prices are subject to change based on project scope and third-party tool costs. Each à la carte item requires a separate written quote and approval before work begins.</div>
+    </div>
+
+    <div class="foot">
+      MJUnlimited Essential Marketing &amp; Web Design · Admin@mjunlimitedessentialmktg.com<br>
+      Questions about your account? We're here to help.
+    </div>
+  </div>
+</div>
+
+<script>
+const API = 'https://api.base44.com/api/apps/6a029d2b5cc37d5b54f861bf/functions/clientPortalVerify';
+let DATA = null;
+const fmt = n => '$' + Number(n || 0).toLocaleString('en-US', {minimumFractionDigits:2, maximumFractionDigits:2});
+
+async function verify(){
+  const inv = document.getElementById('inv').value.trim();
+  const ln = document.getElementById('ln').value.trim();
+  const err = document.getElementById('err');
+  const btn = document.getElementById('verifyBtn');
+  if (!inv || !ln) { err.textContent = 'Please enter both your invoice number and last name.'; err.style.display='block'; return; }
+  err.style.display='none';
+  btn.disabled = true; btn.textContent = 'Verifying…';
+  try {
+    const res = await fetch(API, {method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({invoice_number: inv, last_name: ln})});
+    const out = await res.json();
+    if (out.ok && out.invoice) { DATA = out.invoice; render(); }
+    else { err.textContent = out.message || 'Verification failed. Please check your details and try again.'; err.style.display='block'; }
+  } catch (e) {
+    err.textContent = 'Connection issue — please try again in a moment.'; err.style.display='block';
+  }
+  btn.disabled = false; btn.textContent = 'View My Project & Balance';
+}
+
+function esc(s){ const d = document.createElement('div'); d.textContent = s || ''; return d.innerHTML; }
+
+function render(){
+  const i = DATA;
+  document.getElementById('verifyCard').style.display = 'none';
+  document.getElementById('portal').style.display = 'block';
+  document.getElementById('cName').textContent = i.client_full_name;
+  document.getElementById('cCompany').textContent = i.company || '—';
+  document.getElementById('cEmail').textContent = i.email || '—';
+  document.getElementById('cInv').textContent = i.invoice_number;
+  const st = (i.status||'').toLowerCase();
+  document.getElementById('cStatus').innerHTML = '<span class="badge ' + (st.includes('paid') && !st.includes('partial') ? 'paid' : st.includes('partial') ? 'partial' : 'open') + '">' + esc(i.status) + '</span>';
+  document.getElementById('pTitle').textContent = i.project_title;
+  document.getElementById('pDesc').textContent = i.project_description;
+  const tb = document.getElementById('lineItems');
+  tb.innerHTML = (i.line_items||[]).map(li => '<tr><td>' + esc(li.description) + '</td><td>' + fmt(li.amount) + '</td></tr>').join('');
+  document.getElementById('sSub').textContent = fmt(i.subtotal);
+  document.getElementById('sTax').textContent = fmt(i.tax_amount);
+  document.getElementById('sTaxNote').textContent = i.tax_treatment || '';
+  document.getElementById('sTotal').textContent = fmt(i.total);
+  document.getElementById('sPaid').textContent = '−' + fmt(i.amount_paid);
+  document.getElementById('sBalance').textContent = fmt((i.total||0) - (i.amount_paid||0));
+  document.getElementById('sDue').textContent = i.due_date || 'Upon receipt';
+  document.getElementById('zInv').textContent = i.invoice_number;
+  if (i.payment_plan_note) {
+    document.getElementById('planBox').style.display = 'block';
+    document.getElementById('planNote').textContent = i.payment_plan_note;
+  }
+  window.scrollTo(0,0);
+}
+
+function copyNum(){
+  const btn = document.getElementById('copyBtn');
+  const num = '12036852498';
+  const ok = () => { btn.textContent = 'Copied! ✓'; btn.classList.add('copied'); setTimeout(()=>{btn.textContent='Tap to Copy Number'; btn.classList.remove('copied');}, 2500); };
+  if (navigator.clipboard && navigator.clipboard.writeText) { navigator.clipboard.writeText(num).then(ok); }
+  else { const ta = document.createElement('textarea'); ta.value = num; document.body.appendChild(ta); ta.select(); document.execCommand('copy'); document.body.removeChild(ta); ok(); }
+}
+</script>
+</body>
+</html>
